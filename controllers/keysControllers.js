@@ -1,13 +1,9 @@
-// const sha1 = require('sha1');
-// const { base64encode } = require('nodejs-base64');
-
-const LiqPay = require('liqpay');
 const { customAlphabet } = require('nanoid');
+const LiqPay = require('../utils/liqpay');
 const { ctrlWrapper } = require('../decorators');
 require('dotenv').config();
 
 const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
-
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
 
