@@ -44,6 +44,8 @@ const getKeys = async (req, res) => {
 // response from liqpay with pay status
 const payStatus = async (req, res) => {
 	const { data, signature } = req.body;
+	console.log(req.body);
+
 	const str = PRIVATE_KEY + data + PRIVATE_KEY;
 	const mySign = liqpay.str_to_sign(str);
 
