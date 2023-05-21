@@ -33,6 +33,7 @@ const getKeys = async (req, res) => {
 		currency: 'UAH',
 		description,
 		order_id: orderNum,
+		server_url: 'https://rozkvitay-b.onrender.com/status',
 	};
 
 	const dataForPay = await liqpay.cnb_object(dataParams);
