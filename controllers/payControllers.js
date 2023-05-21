@@ -7,9 +7,14 @@ const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
 
-// Controllers
+// CONTROLLERS
 
-// get
+// waking up the server on Render
+const initConnection = async (req, res) => {
+	res.status(200).json({ message: 'Service is active' });
+};
+
+// get data end signature
 const getKeys = async (req, res) => {
 	const { name, phone, program, amount } = req.body;
 
@@ -28,26 +33,10 @@ const getKeys = async (req, res) => {
 
 	const dataForPay = await liqpay.cnb_object(dataParams);
 
-	// const data = base64encode(JSON.stringify(dataParams));
-	// console.dir(`Data: ${data}`);
-
-	// const signString = PRIVATE_KEY + data + PRIVATE_KEY;
-	// console.dir(`SignString: ${signString}`);
-
-	// // const cryptoString = SHA1(signString).toString();
-	// // console.dir(`crypto: ${cryptoString}`);
-
-	// const signature = base64encode(sha1(signString));
-	// console.dir(`Signature: ${signature}`);
-
-	// const dataForPay = {
-	// 	data: 'eyJwdWJsaWNfa2V5Ijoic2FuZGJveF9pNjExMTUyNDgyODAiLCJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOiI0MDAwIiwiY3VycmVuY3kiOiJVQUgiLCJkZXNjcmlwdGlvbiI6ItCU0LvRjyDRgdC/0LvQsNGC0Lgg0L/QvtGB0LvRg9Cz0Lgg0LfQsCDQv9GA0L7Qs9GA0LDQvNC+0Y4gc3RhbmRhcmQuINCG0Lwn0Y86TWFyazsg0KLQtdC70LXRhNC+0L06KzM4MDYzODkyMzY5MDsgSUQg0LfQsNC80L7QstC70LXQvdC90Y86MzEzMTI3MDUiLCJvcmRlcl9pZCI6IjMxMzEyNzA1In0=',
-	// 	signature: '2J10oTK2uZPTSBkl5hgwu7sCAgc=',
-	// };
-
 	res.status(200).json(dataForPay);
 };
 
 module.exports = {
+	initConnection: ctrlWrapper(initConnection),
 	getKeys: ctrlWrapper(getKeys),
 };
