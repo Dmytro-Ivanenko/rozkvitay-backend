@@ -23,7 +23,7 @@ const getKeys = async (req, res) => {
 	const { name, phone, program, amount } = req.body;
 
 	const orderNum = nanoid();
-	const description = `Для сплати послуги за програмою ${program}. Ім'я:${name}; Телефон:${phone}; ID замовлення:${orderNum}`;
+	const description = `Для сплати послуги за програмою ${program}. Ім'я: ${name}; Телефон: ${phone}; ID замовлення: ${orderNum}`;
 
 	const dataParams = {
 		public_key: PUBLIC_KEY,
@@ -44,7 +44,6 @@ const getKeys = async (req, res) => {
 // response from liqpay with pay status
 const payStatus = async (req, res) => {
 	const { data, signature } = req.body;
-	console.log(req.body);
 
 	const str = PRIVATE_KEY + data + PRIVATE_KEY;
 	const mySign = liqpay.str_to_sign(str);
@@ -83,29 +82,29 @@ const payStatus = async (req, res) => {
 
 	const messageData = {
 		to: 'd.ivanenko@ukr.net',
-		subject: `Rozkvitay замовлення номер: ${order_id}  статус: ${status}`,
+		subject: `Rozkvitay замовлення номер: ${order_id}  статус оплати: ${status}`,
 		html: `
-<p>order_id: ${order_id}</p>
-<p>status: ${status}</p>
-<p>amount: ${amount}</p>
-<p>completion_date: ${completion_date}</p>
-<p>create_date: ${create_date}</p>
-<p>description: ${description}</p>
-<p>end_date: ${end_date}</p>
-<p>err_code: ${err_code}</p>
-<p>err_description: ${err_description}</p>
-<p>ip: ${ip}</p>
-<p>is_3ds: ${is_3ds}</p>
-<p>liqpay_order_id: ${liqpay_order_id}</p>
-<p>payment_id: ${payment_id}</p>
-<p>paytype: ${paytype}</p>
-<p>receiver_commission: ${receiver_commission}</p>
-<p>sender_card_mask2: ${sender_card_mask2}</p>
-<p>sender_card_type: ${sender_card_type}</p>
-<p>sender_commission: ${sender_commission}</p>
-<p>sender_first_name: ${sender_first_name}</p>
-<p>sender_last_name: ${sender_last_name}</p>
-<p>sender_phone: ${sender_phone}</p>`,
+<p>Номер замовлення: ${order_id}</p>
+<p>Cтатус оплати: ${status}</p>
+<p>Cума оплати: ${amount}</p>
+<p>Дата списання коштів: ${new Date(completion_date)}</p>
+<p>Дата створення платежу: ${new Date(create_date)}</p>
+<p>Коментар до платежу: ${description}</p>
+<p>Дата завершення/зміни платежу: ${new Date(end_date)}</p>
+<p>Код помилки: ${err_code}</p>
+<p>Опис помилки: ${err_description}</p>
+<p>IP адреса відправника: ${ip}</p>
+<p>3DS перевірка: ${is_3ds}</p>
+<p>Order_id платежу в системі LiqPay: ${liqpay_order_id}</p>
+<p>Id платежу в системі LiqPay: ${payment_id}</p>
+<p>Спосіб оплати: ${paytype}</p>
+<p>Комісія з одержувача у валюті платежу: ${receiver_commission}</p>
+<p>Карта відправника: ${sender_card_mask2}</p>
+<p>Тип картки відправника MC/Visa: ${sender_card_type}</p>
+<p>Комісія з відправника у валюті платежу: ${sender_commission}</p>
+<p>Ім'я відправника: ${sender_first_name}</p>
+<p>Прізвище відправника: ${sender_last_name}</p>
+<p>Телефон відправника: ${sender_phone}</p>`,
 	};
 
 	await sendEmail(messageData);
