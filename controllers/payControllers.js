@@ -50,6 +50,7 @@ const payStatus = async (req, res) => {
 	const mySign = liqpay.str_to_sign(str);
 
 	if (mySign !== signature) {
+		console.log('Invalid signature');
 		return;
 	}
 
