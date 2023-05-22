@@ -1,4 +1,7 @@
 const { customAlphabet } = require('nanoid');
+const moment = require('moment');
+require('moment-timezone');
+
 var base64 = require('base-64');
 var utf8 = require('utf8');
 
@@ -10,6 +13,9 @@ require('dotenv').config();
 const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
+
+moment.locale('uk-UA');
+moment.tz('Europe/Kiev');
 
 // CONTROLLERS
 
@@ -99,15 +105,13 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата списання коштів:</th>
-        <td>${new Date(completion_date).toLocaleString('uk-UA', {
-					timeZone: 'UTC+02:00',
-				})}</td>
+        <td>${moment.unix(completion_date / 1000).format('DD-MM-YYYY')}
+				
+		</td>
     </tr>
     <tr>
         <th>Дата створення платежу:</th>
-        <td>${new Date(create_date).toLocaleString('uk-UA', {
-					timeZone: 'UTC+02:00',
-				})}</td>
+        <td>${moment.unix(create_date / 1000).format('DD-MM-YYYY')}</td>
     </tr>
     <tr>
         <th>Коментар до платежу:</th>
@@ -115,9 +119,7 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата завершення/зміни платежу:</th>
-        <td>${new Date(end_date).toLocaleString('uk-UA', {
-					timeZone: 'UTC+02:00',
-				})}</td>
+        <td>${moment.unix(end_date / 1000).format('DD-MM-YYYY')}</td>
     </tr>
     <tr>
         <th>Код помилки:</th>
@@ -181,7 +183,7 @@ const payStatus = async (req, res) => {
 	await sendEmail(messageData);
 
 	res.status(200).json({
-		decData,
+		message: 'success',
 	});
 };
 
