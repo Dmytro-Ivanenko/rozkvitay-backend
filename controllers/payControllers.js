@@ -99,11 +99,11 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата списання коштів:</th>
-        <td>${new Date(completion_date).toLocaleString()}</td>
+        <td>${new Date(completion_date).toLocaleString('uk-UA')}</td>
     </tr>
     <tr>
         <th>Дата створення платежу:</th>
-        <td>${new Date(create_date).toLocaleString()}</td>
+        <td>${new Date(create_date).toLocaleString('uk-UA')}</td>
     </tr>
     <tr>
         <th>Коментар до платежу:</th>
@@ -111,7 +111,7 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата завершення/зміни платежу:</th>
-        <td>${new Date(end_date).toLocaleString()}</td>
+        <td>${new Date(end_date).toLocaleString('uk-UA')}</td>
     </tr>
     <tr>
         <th>Код помилки:</th>
