@@ -84,27 +84,92 @@ const payStatus = async (req, res) => {
 		to: 'd.ivanenko@ukr.net',
 		subject: `Rozkvitay замовлення номер: ${order_id}  статус оплати: ${status}`,
 		html: `
-<p>Номер замовлення: ${order_id}</p>
-<p>Cтатус оплати: ${status}</p>
-<p>Cума оплати: ${amount}</p>
-<p>Дата списання коштів: ${new Date(completion_date)}</p>
-<p>Дата створення платежу: ${new Date(create_date)}</p>
-<p>Коментар до платежу: ${description}</p>
-<p>Дата завершення/зміни платежу: ${new Date(end_date)}</p>
-<p>Код помилки: ${err_code}</p>
-<p>Опис помилки: ${err_description}</p>
-<p>IP адреса відправника: ${ip}</p>
-<p>3DS перевірка: ${is_3ds}</p>
-<p>Order_id платежу в системі LiqPay: ${liqpay_order_id}</p>
-<p>Id платежу в системі LiqPay: ${payment_id}</p>
-<p>Спосіб оплати: ${paytype}</p>
-<p>Комісія з одержувача у валюті платежу: ${receiver_commission}</p>
-<p>Карта відправника: ${sender_card_mask2}</p>
-<p>Тип картки відправника MC/Visa: ${sender_card_type}</p>
-<p>Комісія з відправника у валюті платежу: ${sender_commission}</p>
-<p>Ім'я відправника: ${sender_first_name}</p>
-<p>Прізвище відправника: ${sender_last_name}</p>
-<p>Телефон відправника: ${sender_phone}</p>`,
+<table>
+    <tr>
+        <th>Номер замовлення</th>
+        <td>${order_id}</td>
+    </tr>
+    <tr>
+        <th>Cтатус оплати:</th>
+        <td>${status}</td>
+    </tr>
+    <tr>
+        <th>Cума оплати:</th>
+        <td>${amount}</td>
+    </tr>
+    <tr>
+        <th>Дата списання коштів:</th>
+        <td>${new Date(completion_date).toLocaleString()}</td>
+    </tr>
+    <tr>
+        <th>Дата створення платежу:</th>
+        <td>${new Date(create_date).toLocaleString()}</td>
+    </tr>
+    <tr>
+        <th>Коментар до платежу:</th>
+        <td>${description}</td>
+    </tr>
+    <tr>
+        <th>Дата завершення/зміни платежу:</th>
+        <td>${new Date(end_date).toLocaleString()}</td>
+    </tr>
+    <tr>
+        <th>Код помилки:</th>
+        <td>${err_code}</td>
+    </tr>
+    <tr>
+        <th>Опис помилки: </th>
+        <td>${err_description}</td>
+    </tr>
+    <tr>
+        <th>IP адреса відправника:</th>
+        <td>${ip}</td>
+    </tr>
+    <tr>
+        <th>3DS перевірка:</th>
+        <td>${is_3ds}</td>
+    </tr>
+    <tr>
+        <th>Order_id платежу в системі LiqPay:</th>
+        <td>${liqpay_order_id}</td>
+    </tr>
+    <tr>
+        <th>Id платежу в системі LiqPay:</th>
+        <td>${payment_id}</td>
+    </tr>
+    <tr>
+        <th>Спосіб оплати:</th>
+        <td>${paytype}</td>
+    </tr>
+    <tr>
+        <th>Комісія з одержувача у валюті платежу:</th>
+        <td>${receiver_commission}</td>
+    </tr>
+    <tr>
+        <th>Карта відправника: </th>
+        <td> ${sender_card_mask2}</td>
+    </tr>
+    <tr>
+        <th>Тип картки відправника MC/Visa:</th>
+        <td>${sender_card_type}</td>
+    </tr>
+    <tr>
+        <th>Комісія з відправника у валюті платежу:</th>
+        <td>${sender_commission}</td>
+    </tr>
+    <tr>
+        <th>Ім'я відправника:</th>
+        <td>${sender_first_name}</td>
+    </tr>
+    <tr>
+        <th>Прізвище відправника: </th>
+        <td>${sender_last_name}</td>
+    </tr>
+	<tr>
+        <th>Телефон відправника: </th>
+        <td>${sender_phone}</td>
+    </tr>
+</table>`,
 	};
 
 	await sendEmail(messageData);
