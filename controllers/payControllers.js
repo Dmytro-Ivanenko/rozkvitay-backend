@@ -108,13 +108,15 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата списання коштів:</th>
-        <td>${moment.unix(completion_date).format('DD-MM-YYYY HH:mm:ss')}
+        <td>${moment.unix(completion_date / 1000).format('DD-MM-YYYY HH:mm:ss')}
 				
 		</td>
     </tr>
     <tr>
         <th>Дата створення платежу:</th>
-        <td>${moment.unix(create_date).format('DD-MM-YYYY HH:mm:ss')}</td>
+        <td>${moment
+					.unix(create_date / 1000)
+					.format('DD-MM-YYYY HH:mm:ss')}</td>
     </tr>
     <tr>
         <th>Коментар до платежу:</th>
@@ -122,7 +124,7 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата завершення/зміни платежу:</th>
-        <td>${moment.unix(end_date).format('DD-MM-YYYY HH:mm:ss')}</td>
+        <td>${moment.unix(end_date / 1000).format('DD-MM-YYYY HH:mm:ss')}</td>
     </tr>
     <tr>
         <th>Код помилки:</th>
@@ -185,7 +187,6 @@ const payStatus = async (req, res) => {
 
 	await sendEmail(messageData);
 
-	console.log(create_date);
 	res.status(200).json({
 		message: `success`,
 	});
