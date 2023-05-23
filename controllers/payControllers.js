@@ -185,6 +185,7 @@ const payStatus = async (req, res) => {
 
 	await sendEmail(messageData);
 
+	console.log(create_date);
 	res.status(200).json({
 		message: `success`,
 	});
