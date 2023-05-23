@@ -16,8 +16,8 @@ const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
 
-// moment.locale('uk-UA');
-// moment.tz.setDefault('Europe/Kiev');
+moment.locale('uk-UA');
+moment.tz.setDefault('Europe/Kiev');
 
 // CONTROLLERS
 
@@ -108,15 +108,13 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата списання коштів:</th>
-        <td>${moment.unix(completion_date / 1000).format('DD-MM-YYYY HH:mm:ss')}
+        <td>${moment.unix(completion_date).format('DD-MM-YYYY HH:mm:ss')}
 				
 		</td>
     </tr>
     <tr>
         <th>Дата створення платежу:</th>
-        <td>${moment
-					.unix(create_date / 1000)
-					.format('DD-MM-YYYY HH:mm:ss')}</td>
+        <td>${moment.unix(create_date).format('DD-MM-YYYY HH:mm:ss')}</td>
     </tr>
     <tr>
         <th>Коментар до платежу:</th>
@@ -124,7 +122,7 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата завершення/зміни платежу:</th>
-        <td>${moment.unix(end_date / 1000).format('DD-MM-YYYY HH:mm:ss')}</td>
+        <td>${moment.unix(end_date).format('DD-MM-YYYY HH:mm:ss')}</td>
     </tr>
     <tr>
         <th>Код помилки:</th>
