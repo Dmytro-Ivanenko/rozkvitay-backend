@@ -8,14 +8,16 @@ var utf8 = require('utf8');
 const LiqPay = require('../utils/liqpay');
 const { ctrlWrapper } = require('../decorators');
 const { sendEmail } = require('../utils');
+const { HttpError } = require('../helpers');
+
 require('dotenv').config();
 
 const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
 
-moment.locale('uk-UA');
-moment.tz('Europe/Kiev');
+// moment.locale('uk-UA');
+// moment.tz.setDefault('Europe/Kiev');
 
 // CONTROLLERS
 
@@ -56,7 +58,7 @@ const payStatus = async (req, res) => {
 
 	if (mySign !== signature) {
 		console.log('Invalid signature');
-		return;
+		throw HttpError(400);
 	}
 
 	const bytes = base64.decode(data);
@@ -88,6 +90,7 @@ const payStatus = async (req, res) => {
 
 	const messageData = {
 		to: 'd.ivanenko@ukr.net',
+		// to: 'rozkvitay.team@gmail.com',
 		subject: `Rozkvitay замовлення номер: ${order_id}  статус оплати: ${status}`,
 		html: `
 <table>
@@ -185,7 +188,7 @@ const payStatus = async (req, res) => {
 	await sendEmail(messageData);
 
 	res.status(200).json({
-		message: 'success',
+		message: `success`,
 	});
 };
 
