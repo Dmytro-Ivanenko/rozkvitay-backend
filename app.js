@@ -6,7 +6,7 @@ const keyRouter = require('./routes/api/pay');
 
 const app = express();
 
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'combined';
 
 app.use(logger(formatsLogger));
 app.use(cors());
