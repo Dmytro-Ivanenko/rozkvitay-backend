@@ -90,6 +90,7 @@ const payStatus = async (req, res) => {
 
 	const messageData = {
 		// to: 'd.ivanenko@ukr.net',
+
 		to: 'rozkvitay.team@gmail.com',
 		subject: `Rozkvitay замовлення номер: ${order_id}  статус оплати: ${status}`,
 		html: `
