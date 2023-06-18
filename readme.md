@@ -14,8 +14,7 @@ Before using the project, make sure you have Node.js and npm installed.
 Make sure to set up the following environment variables before running the
 server:
 
--PORT: The port on which the server will listen for incoming requests.
-
+- PORT: The port on which the server will listen for incoming requests.
 - PUBLIC_KEY: The public key for Liqpay integration.
 - PRIVATE_KEY: The private key for Liqpay integration.
 - SENDGRID_API_KEY: The API key for SendGrid to send emails.
