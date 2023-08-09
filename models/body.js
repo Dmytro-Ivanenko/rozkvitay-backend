@@ -3,7 +3,7 @@ const Joi = require('joi');
 const bodyValidateSchema = Joi.object({
 	name: Joi.string().max(50).required(),
 	phone: Joi.string().max(30).required(),
-	program: Joi.string().valid('test', 'independent', 'standard', 'vip'),
+	program: Joi.string().valid('test', 'samostijnyj', 'standard', 'vip'),
 	amount: Joi.number().required(),
 });
 
