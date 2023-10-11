@@ -42,9 +42,8 @@ const getKeys = async (req, res) => {
 		description,
 		order_id: orderNum,
 		server_url: 'https://rozkvitay-b.onrender.com/status',
+		result_url: program === 'rozkvitay' ? TELEGRAM_INVITE : 'https://rozkvitay.net.ua',
 	};
-
-	if (program === 'rozkvitay') dataParams.result_url = TELEGRAM_INVITE;
 
 	const dataForPay = await liqpay.cnb_object(dataParams);
 
@@ -117,9 +116,7 @@ const payStatus = async (req, res) => {
     </tr>
     <tr>
         <th>Дата створення платежу:</th>
-        <td>${moment
-					.unix(create_date / 1000)
-					.format('DD-MM-YYYY HH:mm:ss')}</td>
+        <td>${moment.unix(create_date / 1000).format('DD-MM-YYYY HH:mm:ss')}</td>
     </tr>
     <tr>
         <th>Коментар до платежу:</th>
