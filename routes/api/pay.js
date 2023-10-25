@@ -6,12 +6,14 @@ const {
 	getKeys,
 	initConnection,
 	payStatus,
+	getInvite,
 } = require('../../controllers/payControllers');
 
 const router = express.Router();
 
 // routes
 router.get('/init', initConnection);
+router.get('/invite', getInvite);
 router.post('/keys', validateBody(schemas.bodyValidateSchema), getKeys);
 router.post('/status', payStatus);
 

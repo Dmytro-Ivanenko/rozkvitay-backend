@@ -50,6 +50,28 @@ const getKeys = async (req, res) => {
 	res.status(200).json(dataForPay);
 };
 
+// invite to telegram
+const getInvite = async (req, res) => {
+	const orderNum = nanoid();
+	const description = `Для сплати послуги за програмою "Rozkvitay". ID замовлення: ${orderNum}`;
+
+	const dataParams = {
+		public_key: PUBLIC_KEY,
+		version: 3,
+		action: 'pay',
+		amount: 750,
+		currency: 'UAH',
+		description,
+		order_id: orderNum,
+		server_url: 'https://rozkvitay-b.onrender.com/status',
+		result_url: TELEGRAM_INVITE,
+	};
+
+	const dataForPay = await liqpay.cnb_object(dataParams);
+
+	res.status(200).json(dataForPay);
+};
+
 // response from liqpay with pay status
 const payStatus = async (req, res) => {
 	const { data, signature } = req.body;
@@ -90,8 +112,6 @@ const payStatus = async (req, res) => {
 	} = decData;
 
 	const messageData = {
-		// to: 'd.ivanenko@ukr.net',
-
 		to: 'rozkvitay.team@gmail.com',
 		subject: `Rozkvitay замовлення номер: ${order_id}  статус оплати: ${status}`,
 		html: `
@@ -196,4 +216,5 @@ module.exports = {
 	initConnection: ctrlWrapper(initConnection),
 	getKeys: ctrlWrapper(getKeys),
 	payStatus: ctrlWrapper(payStatus),
+	getInvite: ctrlWrapper(getInvite),
 };
