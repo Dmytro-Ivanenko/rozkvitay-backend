@@ -12,7 +12,7 @@ const { HttpError } = require('../helpers');
 
 require('dotenv').config();
 
-const { PUBLIC_KEY, PRIVATE_KEY, TELEGRAM_INVITE } = process.env;
+const { PUBLIC_KEY, PRIVATE_KEY } = process.env;
 const liqpay = new LiqPay(PUBLIC_KEY, PRIVATE_KEY);
 const nanoid = customAlphabet('1234567890', 8);
 
@@ -42,7 +42,7 @@ const getKeys = async (req, res) => {
 		description,
 		order_id: orderNum,
 		server_url: 'https://rozkvitay-b.onrender.com/status',
-		result_url: program === 'rozkvitay' ? TELEGRAM_INVITE : 'https://rozkvitay.net.ua',
+		result_url: 'https://rozkvitay.net.ua',
 	};
 
 	const dataForPay = await liqpay.cnb_object(dataParams);
@@ -64,11 +64,9 @@ const getInvite = async (req, res) => {
 		description,
 		order_id: orderNum,
 		server_url: 'https://rozkvitay-b.onrender.com/status',
-		result_url: TELEGRAM_INVITE,
 	};
 
 	const dataForPay = await liqpay.cnb_object(dataParams);
-
 	res.status(200).json(dataForPay);
 };
 
