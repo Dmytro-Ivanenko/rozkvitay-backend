@@ -59,7 +59,7 @@ const getInvite = async (req, res) => {
 		public_key: PUBLIC_KEY,
 		version: 3,
 		action: 'pay',
-		amount: 750,
+		amount: 1111,
 		// amount: 550,
 		currency: 'UAH',
 		description,
